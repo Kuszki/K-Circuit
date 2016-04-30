@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/tools">
+        <file>tool_resistor.svg</file>
+        <file>tool_ground.svg</file>
+        <file>tool_csource.svg</file>
+        <file>tool_vsource.svg</file>
+        <file>tool_node.svg</file>
+    </qresource>
+</RCC>

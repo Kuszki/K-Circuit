@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>VariableWidget</class>
+ <widget class="QWidget" name="VariableWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="2">
+    <widget class="QToolButton" name="addButton">
+     <property name="text">
+      <string>Add</string>
+     </property>
+     <property name="icon">
+      <iconset theme="add">
+       <normaloff>.</normaloff>.</iconset>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QToolButton" name="removeButton">
+     <property name="text">
+      <string>Delete</string>
+     </property>
+     <property name="icon">
+      <iconset theme="remove">
+       <normaloff>.</normaloff>.</iconset>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QComboBox" name="templateBox">
+     <property name="editable">
+      <bool>true</bool>
+     </property>
+     <item>
+      <property name="text">
+       <string notr="true">E</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string notr="true">I</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string notr="true">R</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="3">
+    <widget class="QTableWidget" name="variablesTab">
+     <property name="selectionMode">
+      <enum>QAbstractItemView::SingleSelection</enum>
+     </property>
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+     <attribute name="horizontalHeaderStretchLastSection">
+      <bool>true</bool>
+     </attribute>
+     <attribute name="verticalHeaderVisible">
+      <bool>false</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>Name</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Value</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>addButton</sender>
+   <signal>clicked()</signal>
+   <receiver>VariableWidget</receiver>
+   <slot>AddButtonClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>375</x>
+     <y>274</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>removeButton</sender>
+   <signal>clicked()</signal>
+   <receiver>VariableWidget</receiver>
+   <slot>RemoveButtonClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>339</x>
+     <y>274</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>variablesTab</sender>
+   <signal>cellDoubleClicked(int,int)</signal>
+   <receiver>VariableWidget</receiver>
+   <slot>CellEditStarted(int,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>130</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>variablesTab</sender>
+   <signal>cellChanged(int,int)</signal>
+   <receiver>VariableWidget</receiver>
+   <slot>CellValueChanged(int,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>130</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>AddButtonClicked()</slot>
+  <slot>RemoveButtonClicked()</slot>
+  <slot>CellEditStarted(int,int)</slot>
+  <slot>CellValueChanged(int,int)</slot>
+ </slots>
+</ui>
