@@ -22,6 +22,9 @@
 #define TOOLWIDGET_HPP
 
 #include <QWidget>
+#include <QList>
+
+#include "itemtemplate.hpp"
 
 namespace Ui
 {

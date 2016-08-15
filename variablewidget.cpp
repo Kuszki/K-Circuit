@@ -42,30 +42,36 @@ void VariableWidget::AddButtonClicked(void)
 	const QString Prefix = ui->templateBox->currentText();
 	const int Rows = ui->variablesTab->rowCount();
 
-	QString Name = QString("%1").arg(Prefix);
+	QString Name = Prefix; int Tmp;
 
-	bool Duplicated = false;
-	int Index = 0;
-
-	do
+	if (NameValidator->validate(Name, Tmp))
 	{
-		Duplicated = false;
+		bool Duplicated = false;
+		int Index = 0;
 
-		for (int i = 0; i < Rows; i++)
+		do
 		{
-			if (ui->variablesTab->item(i, 0)->text() == Name)
+			Duplicated = false;
+
+			for (int i = 0; i < Rows; i++)
 			{
-				Name = QString("%1%2").arg(Prefix).arg(++Index);
-				Duplicated = true;
+				if (ui->variablesTab->item(i, 0)->text() == Name)
+				{
+					Name = QString("%1%2").arg(Prefix).arg(++Index);
+					Duplicated = true;
+				}
 			}
 		}
-	}
-	while (Duplicated);
+		while (Duplicated);
 
-	ui->variablesTab->insertRow(Rows);
-	ui->variablesTab->setItem(Rows, 0, new QTableWidgetItem(Name));
-	ui->variablesTab->setItem(Rows, 1, new QTableWidgetItem(StrZero));
-	qDebug() << ui->variablesTab->item(Rows, 0) << ui->variablesTab->item(Rows, 1);
+		ui->variablesTab->insertRow(Rows);
+		ui->variablesTab->setItem(Rows, 0, new QTableWidgetItem(Name));
+		ui->variablesTab->setItem(Rows, 1, new QTableWidgetItem(StrZero));
+	}
+	else
+	{
+		QMessageBox::warning(this, tr("Error"), tr("Selected prefix is invalid"));
+	}
 }
 
 void VariableWidget::RemoveButtonClicked(void)

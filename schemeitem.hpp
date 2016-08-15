@@ -18,24 +18,65 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#include "toolwidget.hpp"
-#include "ui_toolwidget.h"
+#ifndef SCHEMEITEM_HPP
+#define SCHEMEITEM_HPP
 
-ToolWidget::ToolWidget(QWidget* Parent)
-: QWidget(Parent), ui(new Ui::ToolWidget)
+#include <QGraphicsSceneContextMenuEvent>
+#include <QGraphicsSceneMouseEvent>
+#include <QGraphicsTextItem>
+#include <QGraphicsSvgItem>
+#include <QGraphicsScene>
+#include <QGraphicsItem>
+#include <QAction>
+#include <QPointF>
+#include <QMenu>
+#include <QList>
+
+#include "itemtemplate.hpp"
+#include "itemdialog.hpp"
+
+class SchemeItem : public QGraphicsSvgItem
 {
-	ui->setupUi(this);
 
-	for (const auto& Item: ItemTemplate::GetTemplate())
-	{
-		QListWidgetItem* Tool = new QListWidgetItem(QIcon(Item.Icon), Item.Name);
+	private:
 
-		Tool->setData(Qt::UserRole, static_cast<unsigned>(Item.Type));
-		ui->listWidget->addItem(Tool);
-	}
-}
+		const ItemTemplate::TYPE TYPE;
 
-ToolWidget::~ToolWidget(void)
-{
-	delete ui;
-}
+		QList<const SchemeItem*> Connections;
+
+		QString Value;
+
+	protected:
+
+		virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* Event) override;
+		virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* Event) override;
+		virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent* Event) override;
+
+	public:
+
+		explicit SchemeItem(ItemTemplate::TYPE Type, QGraphicsItem* Parent = nullptr);
+		virtual ~SchemeItem(void) override;
+
+		QPointF GetConnectionPoint(int Index) const;
+
+		bool ConnectItem(const SchemeItem* Item, int Slot = 0);
+
+		void DisconnectItem(const SchemeItem* Item);
+
+		void DisconnectSlot(int Slot);
+
+		const QList<const SchemeItem*> GetConnections(void) const;
+
+	public slots:
+
+		void SaveNewValue(const QString& NewValue);
+
+		void TriggerEditAction(void);
+
+	signals:
+
+		void onConnectRequest(int);
+
+};
+
+#endif // SCHEMEITEM_HPP

@@ -18,24 +18,25 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#include "toolwidget.hpp"
-#include "ui_toolwidget.h"
+#include "itemdialog.hpp"
+#include "ui_itemdialog.h"
 
-ToolWidget::ToolWidget(QWidget* Parent)
-: QWidget(Parent), ui(new Ui::ToolWidget)
+ItemDialog::ItemDialog(const QString& Value, QWidget* Parent)
+: QDialog(Parent), ui(new Ui::ItemDialog)
 {
 	ui->setupUi(this);
 
-	for (const auto& Item: ItemTemplate::GetTemplate())
-	{
-		QListWidgetItem* Tool = new QListWidgetItem(QIcon(Item.Icon), Item.Name);
-
-		Tool->setData(Qt::UserRole, static_cast<unsigned>(Item.Type));
-		ui->listWidget->addItem(Tool);
-	}
+	ui->valueEdit->setText(Value);
 }
 
-ToolWidget::~ToolWidget(void)
+ItemDialog::~ItemDialog(void)
 {
 	delete ui;
+}
+
+void ItemDialog::accept(void)
+{
+	emit onDialogAccepted(ui->valueEdit->text());
+
+	QDialog::accept();
 }

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT		+=	core gui widgets
+QT		+=	core gui widgets svg
 CONFIG	+=	c++14
 
 TARGET	=	kcircuit
@@ -14,16 +14,23 @@ SOURCES	+=	main.cpp \
 			mainwindow.cpp \
     toolwidget.cpp \
     schemeview.cpp \
-    variablewidget.cpp
+    variablewidget.cpp \
+    schemeitem.cpp \
+    itemtemplate.cpp \
+    itemdialog.cpp
 
 HEADERS	+=	mainwindow.hpp \
     toolwidget.hpp \
     schemeview.hpp \
-    variablewidget.hpp
+    variablewidget.hpp \
+    schemeitem.hpp \
+    itemtemplate.hpp \
+    itemdialog.hpp
 
 FORMS	+=	mainwindow.ui \
     toolwidget.ui \
-    variablewidget.ui
+    variablewidget.ui \
+    itemdialog.ui
 
 RESOURCES += \
     resources.qrc

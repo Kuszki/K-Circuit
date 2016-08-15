@@ -17,12 +17,58 @@
  *  along with this program. If not, see http://www.gnu.org/licenses/.     *
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 #include "schemeview.hpp"
 
 SchemeView::SchemeView(QWidget* Parent)
 : QGraphicsView(Parent)
 {
+	mainScene = new QGraphicsScene(this);
 
+	setAcceptDrops(true);
+	setScene(mainScene);
 }
 
 SchemeView::~SchemeView(void) {}
+
+void SchemeView::dragEnterEvent(QDragEnterEvent* Event)
+{
+	Event->acceptProposedAction();
+}
+
+void SchemeView::dragMoveEvent(QDragMoveEvent* Event)
+{
+	Event->acceptProposedAction();
+}
+
+void SchemeView::dragLeaveEvent(QDragLeaveEvent* Event)
+{
+	Event->accept();
+}
+
+void SchemeView::dropEvent(QDropEvent* Event)
+{
+	if (QListWidget* Object = qobject_cast<QListWidget*>(Event->source()))
+	{
+		QGraphicsItem* Item = new SchemeItem(static_cast<ItemTemplate::TYPE>(Object->currentItem()->data(Qt::UserRole).toUInt()));
+
+		Item->setPos(mapToScene(Event->pos()));
+
+		scene()->addItem(Item);
+	}
+
+	if (scene()->items().size() == 2)
+	{
+
+	}
+
+	QGraphicsView::dropEvent(Event);
+}
+
+void SchemeView::DrawRoute(void)
+{
+	if (SchemeItem* Item = dynamic_cast<SchemeItem*>(sender()))
+	{
+
+	}
+}

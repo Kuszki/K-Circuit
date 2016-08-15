@@ -23,6 +23,7 @@
 
 #include <QRegExpValidator>
 #include <QDoubleValidator>
+#include <QMessageBox>
 #include <QValidator>
 #include <QLineEdit>
 #include <QWidget>

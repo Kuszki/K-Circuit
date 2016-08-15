@@ -18,12 +18,17 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#include "mainwindow.hpp"
 #include <QApplication>
+
+#include "mainwindow.hpp"
+#include "itemtemplate.hpp"
 
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
+
+	ItemTemplate::Init();
+
 	MainWindow w;
 	w.show();
 

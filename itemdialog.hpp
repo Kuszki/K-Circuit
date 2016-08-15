@@ -18,24 +18,38 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#include "toolwidget.hpp"
-#include "ui_toolwidget.h"
+#ifndef ITEMDIALOG_HPP
+#define ITEMDIALOG_HPP
 
-ToolWidget::ToolWidget(QWidget* Parent)
-: QWidget(Parent), ui(new Ui::ToolWidget)
+#include <QDialog>
+
+namespace Ui
 {
-	ui->setupUi(this);
-
-	for (const auto& Item: ItemTemplate::GetTemplate())
-	{
-		QListWidgetItem* Tool = new QListWidgetItem(QIcon(Item.Icon), Item.Name);
-
-		Tool->setData(Qt::UserRole, static_cast<unsigned>(Item.Type));
-		ui->listWidget->addItem(Tool);
-	}
+	class ItemDialog;
 }
 
-ToolWidget::~ToolWidget(void)
+class ItemDialog : public QDialog
 {
-	delete ui;
-}
+
+		Q_OBJECT
+
+	private:
+
+		Ui::ItemDialog *ui;
+
+	public:
+
+		explicit ItemDialog(const QString& Value, QWidget* Parent = nullptr);
+		virtual ~ItemDialog(void) override;
+
+	public slots:
+
+		virtual void accept(void) override;
+
+	signals:
+
+		void onDialogAccepted(const QString&);
+
+};
+
+#endif // ITEMDIALOG_HPP

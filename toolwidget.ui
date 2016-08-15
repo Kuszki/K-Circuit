@@ -25,57 +25,10 @@
        <height>64</height>
       </size>
      </property>
-     <item>
-      <property name="text">
-       <string>Voltage source</string>
-      </property>
-      <property name="icon">
-       <iconset resource="resources.qrc">
-        <normaloff>:/tools/tool_vsource.svg</normaloff>:/tools/tool_vsource.svg</iconset>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Current source</string>
-      </property>
-      <property name="icon">
-       <iconset resource="resources.qrc">
-        <normaloff>:/tools/tool_csource.svg</normaloff>:/tools/tool_csource.svg</iconset>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Resistor</string>
-      </property>
-      <property name="icon">
-       <iconset resource="resources.qrc">
-        <normaloff>:/tools/tool_resistor.svg</normaloff>:/tools/tool_resistor.svg</iconset>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Ground</string>
-      </property>
-      <property name="icon">
-       <iconset resource="resources.qrc">
-        <normaloff>:/tools/tool_ground.svg</normaloff>:/tools/tool_ground.svg</iconset>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Node</string>
-      </property>
-      <property name="icon">
-       <iconset resource="resources.qrc">
-        <normaloff>:/tools/tool_node.svg</normaloff>:/tools/tool_node.svg</iconset>
-      </property>
-     </item>
     </widget>
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

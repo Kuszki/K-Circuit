@@ -17,25 +17,51 @@
  *  along with this program. If not, see http://www.gnu.org/licenses/.     *
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+#ifndef ITEMTEMPLATE_HPP
+#define ITEMTEMPLATE_HPP
 
-#include "toolwidget.hpp"
-#include "ui_toolwidget.h"
+#include <QObject>
+#include <QList>
+#include <QMap>
 
-ToolWidget::ToolWidget(QWidget* Parent)
-: QWidget(Parent), ui(new Ui::ToolWidget)
+class ItemTemplate : public QObject
 {
-	ui->setupUi(this);
 
-	for (const auto& Item: ItemTemplate::GetTemplate())
+		Q_OBJECT
+
+	public: enum TYPE: unsigned
 	{
-		QListWidgetItem* Tool = new QListWidgetItem(QIcon(Item.Icon), Item.Name);
+		VoltageSource,
+		CurrentSource,
+		Resistor,
+		Ground,
+		Node
+	};
 
-		Tool->setData(Qt::UserRole, static_cast<unsigned>(Item.Type));
-		ui->listWidget->addItem(Tool);
-	}
-}
+	private: struct ItemData
+	{
+		QString Name;
+		QString Icon;
 
-ToolWidget::~ToolWidget(void)
-{
-	delete ui;
-}
+		TYPE Type;
+	};
+
+	private:
+
+		static QList<ItemData> ItemList;
+
+		static QMap<TYPE, QString> IconMap;
+		static QMap<TYPE, QString> NameMap;
+
+	public:
+
+		static const QList<ItemData>& GetTemplate(void);
+
+		static const QMap<TYPE, QString>& GetIcons(void);
+		static const QMap<TYPE, QString>& GetNames(void);
+
+		static void Init(void);
+
+};
+
+#endif // ITEMTEMPLATE_HPP

@@ -22,18 +22,40 @@
 #define SCHEMEVIEW_HPP
 
 #include <QGraphicsView>
+#include <QListWidget>
 #include <QObject>
 #include <QWidget>
+
+#include <QDragEnterEvent>
+#include <QDragLeaveEvent>
+#include <QDragMoveEvent>
+#include <QDropEvent>
+
+#include "itemtemplate.hpp"
+#include "schemeitem.hpp"
 
 class SchemeView : public QGraphicsView
 {
 
 		Q_OBJECT
 
+	private:
+
+		QGraphicsScene* mainScene;
+
 	public:
 
 		explicit SchemeView(QWidget* Parent = nullptr);
 		virtual ~SchemeView(void) override;
+
+		virtual void dragEnterEvent(QDragEnterEvent* Event) override;
+		virtual void dragMoveEvent(QDragMoveEvent* Event) override;
+		virtual void dragLeaveEvent(QDragLeaveEvent* Event) override;
+		virtual void dropEvent(QDropEvent* Event) override;
+
+	private slots:
+
+		void DrawRoute(void);
 
 };
 

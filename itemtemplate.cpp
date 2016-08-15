@@ -18,24 +18,54 @@
  *                                                                         *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#include "toolwidget.hpp"
-#include "ui_toolwidget.h"
+#include "itemtemplate.hpp"
 
-ToolWidget::ToolWidget(QWidget* Parent)
-: QWidget(Parent), ui(new Ui::ToolWidget)
+QList<ItemTemplate::ItemData> ItemTemplate::ItemList = QList<ItemTemplate::ItemData>();
+
+QMap<ItemTemplate::TYPE, QString> ItemTemplate::IconMap = QMap<ItemTemplate::TYPE, QString>();
+QMap<ItemTemplate::TYPE, QString> ItemTemplate::NameMap = QMap<ItemTemplate::TYPE, QString>();
+
+void ItemTemplate::Init(void)
 {
-	ui->setupUi(this);
-
-	for (const auto& Item: ItemTemplate::GetTemplate())
+	ItemList =
 	{
-		QListWidgetItem* Tool = new QListWidgetItem(QIcon(Item.Icon), Item.Name);
+		{ tr("Voltage source"),	":/tools/tool_vsource.svg",	VoltageSource	},
+		{ tr("Current source"),	":/tools/tool_csource.svg",	CurrentSource	},
+		{ tr("Resistor"),		":/tools/tool_resistor.svg",	Resistor		},
+		{ tr("Ground"),		":/tools/tool_ground.svg",	Ground		},
+		{ tr("Node"),			":/tools/tool_node.svg",		Node			}
+	};
 
-		Tool->setData(Qt::UserRole, static_cast<unsigned>(Item.Type));
-		ui->listWidget->addItem(Tool);
-	}
+	IconMap =
+	{
+		{ VoltageSource,	":/tools/tool_vsource.svg"	},
+		{ CurrentSource,	":/tools/tool_csource.svg"	},
+		{ Resistor,		":/tools/tool_resistor.svg"	},
+		{ Ground,			":/tools/tool_ground.svg"	},
+		{ Node,			":/tools/tool_node.svg"		}
+	};
+
+	NameMap =
+	{
+		{ VoltageSource,	tr("Voltage source")	},
+		{ CurrentSource,	tr("Current source")	},
+		{ Resistor,		tr("Resistor")			},
+		{ Ground,			tr("Ground")			},
+		{ Node,			tr("Node")			}
+	};
 }
 
-ToolWidget::~ToolWidget(void)
+const QList<ItemTemplate::ItemData>& ItemTemplate::GetTemplate(void)
 {
-	delete ui;
+	return ItemList;
+}
+
+const QMap<ItemTemplate::TYPE, QString>& ItemTemplate::GetIcons(void)
+{
+	return IconMap;
+}
+
+const QMap<ItemTemplate::TYPE, QString>& ItemTemplate::GetNames(void)
+{
+	return NameMap;
 }
